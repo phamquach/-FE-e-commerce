@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+
+
+:root {
+    --background-default: #25dac5;
+    --background-scrollbar: #56e4d4;
+    --font-header-default: "Winky Rough", sans-serif;
+}
+
+* {
+    font-family: "Inter", sans-serif !important;
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    /* Độ rộng thanh cuộn: thin, auto, none */
+    scrollbar-color: var(--background-scrollbar) #f1f1f1;
+    /* Màu thanh cuộn và track */
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    /* Độ rộng của thanh cuộn dọc */
+    height: 8px;
+    /* Chiều cao của thanh cuộn ngang */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Màu nền của track */
+    border-radius: 10px;
+    /* Bo góc track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--background-scrollbar);
+    /* Màu của thanh cuộn */
+    border-radius: 10px;
+    /* Bo góc thanh cuộn */
+    border: 2px solid #ffffff;
+    /* Tạo khoảng cách giữa thanh cuộn và track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5ee3d4;
+    /* Màu khi hover */
+}
+
+/* Đảm bảo thanh cuộn không ảnh hưởng đến layout */
+body {
+    overflow-y: scroll;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.animate-scale {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.animate-scale:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.text-underline:hover {
+    text-decoration: underline;
+}

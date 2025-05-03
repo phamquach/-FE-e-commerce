@@ -1,0 +1,31 @@
+interface User {
+    userid: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    address: string;
+    phoneNumber: string;
+    role: string;
+}
+
+interface UserLogin {
+    email: string;
+    password: string;
+}
+interface UserRegister {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    address: string;
+    phoneNumber: string;
+}
+
+interface Products {
+    productId: number,
+    name: string,
+    description: string,
+    price: number,
+    stock: number,
+    categoryId: number,
+}
