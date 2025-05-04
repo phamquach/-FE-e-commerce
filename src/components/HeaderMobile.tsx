@@ -10,25 +10,13 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { JSX } from "react";
-
-interface Menus {
-  path: string;
-  title: string;
-}
 
 interface IHeaderMobile {
   drawerOpen: boolean;
   setDrawerOpen: (val: boolean) => void;
   MENUS: Array<Menus>;
-  IconMenu?: Array<JSX.Element>;
 }
-function HeaderMobile({
-  drawerOpen,
-  setDrawerOpen,
-  MENUS,
-  IconMenu,
-}: IHeaderMobile) {
+function HeaderMobile({ drawerOpen, setDrawerOpen, MENUS }: IHeaderMobile) {
   return (
     <>
       <IconButton edge="start" onClick={() => setDrawerOpen(true)}>
@@ -55,7 +43,7 @@ function HeaderMobile({
         </ListItem>
         <Box width={250}>
           <List>
-            {MENUS.map((menu, index) => (
+            {MENUS.map((menu) => (
               <ListItem
                 key={menu.title}
                 href={menu.path}
@@ -63,7 +51,7 @@ function HeaderMobile({
                 onClick={() => setDrawerOpen(false)}
                 sx={{ display: "inline-flex", gap: 1, alignItems: "center" }}
               >
-                {IconMenu && IconMenu[index]}
+                {menu.icon}
                 <ListItemText>{menu.title}</ListItemText>
               </ListItem>
             ))}

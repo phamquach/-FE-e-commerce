@@ -29,3 +29,9 @@ interface Products {
     stock: number,
     categoryId: number,
 }
+
+interface Menus {
+    path: string;
+    title: string;
+    icon: JSX.Element;
+}

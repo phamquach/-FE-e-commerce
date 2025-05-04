@@ -1,25 +1,18 @@
 "use clietnt";
 import { Box, MenuItem } from "@mui/material";
 import Link from "next/link";
-import { JSX } from "react";
-
-interface Menus {
-  path: string;
-  title: string;
-}
 
 interface IHeaderTablet {
   MENUS: Array<Menus>;
-  IconMenu?: Array<JSX.Element>;
 }
-function HeaderTablet({ MENUS, IconMenu }: IHeaderTablet) {
+function HeaderTablet({ MENUS }: IHeaderTablet) {
   return (
     <Box display="flex" alignItems="center" gap={2}>
-      {MENUS.map((menu, index) => (
+      {MENUS.map((menu) => (
         <Link key={menu.title} href={menu.path}>
           <MenuItem
             sx={{
-              display: 'inline-flex',
+              display: "inline-flex",
               gap: 1,
               "::before": {
                 content: '""',
@@ -41,7 +34,7 @@ function HeaderTablet({ MENUS, IconMenu }: IHeaderTablet) {
               color: "var(--background-default)",
             }}
           >
-            {IconMenu && IconMenu[index]}
+            {menu.icon}
             {menu.title}
           </MenuItem>
         </Link>

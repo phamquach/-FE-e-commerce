@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { JSX, useState } from "react";
+import { useState } from "react";
 import ROUTES from "@/routes/routes";
 import AccountMenu from "@/components/Profile";
 import HeaderMobile from "@/components/HeaderMobile";
@@ -25,19 +25,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import GroupsIcon from "@mui/icons-material/Groups";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-
-const IconMenu: Array<JSX.Element> = [
-  <HomeIcon key={1} />,
-  <ShoppingBasketIcon key={2} />,
-  <GroupsIcon key={3} />,
-  <RecentActorsIcon key={4} />,
-];
-
 const MENUS = [
-  { title: "Home", path: ROUTES.home },
-  { title: "Shop", path: ROUTES.shop },
-  { title: "About", path: "#about" },
-  { title: "Contact", path: "#aasd" },
+  { title: "Home", path: ROUTES.home, icon: <HomeIcon /> },
+  { title: "Shop", path: ROUTES.shop, icon: <ShoppingBasketIcon /> },
+  { title: "About", path: "#about", icon: <GroupsIcon /> },
+  { title: "Contact", path: "#aasd", icon: <RecentActorsIcon /> },
 ];
 
 export default function Header() {
@@ -61,10 +53,9 @@ export default function Header() {
             drawerOpen={drawerOpen}
             setDrawerOpen={setDrawerOpen}
             MENUS={MENUS}
-            IconMenu={IconMenu}
           />
         ) : (
-          <HeaderTablet MENUS={MENUS} IconMenu={IconMenu} />
+          <HeaderTablet MENUS={MENUS} />
         )}
 
         <Box
