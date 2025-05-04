@@ -49,7 +49,7 @@ export default function DemoProduct({
     <Box
       display="flex"
       flexDirection={{
-        xs: "column",
+        xs: "column-reverse",
         sm: reverse ? "row-reverse" : "row",
       }}
       alignItems="center"

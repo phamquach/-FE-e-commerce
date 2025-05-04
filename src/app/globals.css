@@ -15,6 +15,7 @@
 
 html,
 body {
+
     font-size: 16px;
     scroll-behavior: smooth;
     scrollbar-width: thin;
@@ -61,15 +62,26 @@ a {
     color: black;
 }
 
-.animate-scale {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.text-underline:hover {
+    text-decoration: underline;
 }
 
-.animate-scale:hover {
-    transform: scale(1.05);
+.animate-shadow {
+    transition: box-shadow 0.3s ease;
+}
+
+.animate-shadow:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.text-underline:hover {
-    text-decoration: underline;
+.animate-scale {
+    transition: transform 0.3s ease;
+}
+
+.animate-scale:hover {
+    transform: scale(1.5);
+}
+
+.parent-animate-scale:hover .animate-scale {
+    transform: scale(1.5);
 }

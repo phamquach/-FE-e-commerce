@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { JSX, useState } from "react";
 import ROUTES from "@/routes/routes";
 import AccountMenu from "@/components/Profile";
 import HeaderMobile from "@/components/HeaderMobile";
@@ -21,6 +21,17 @@ import { useTheme } from "@mui/material/styles";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import HomeIcon from "@mui/icons-material/Home";
+import GroupsIcon from "@mui/icons-material/Groups";
+import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+
+const IconMenu: Array<JSX.Element> = [
+  <HomeIcon key={1} />,
+  <ShoppingBasketIcon key={2} />,
+  <GroupsIcon key={3} />,
+  <RecentActorsIcon key={4} />,
+];
 
 const MENUS = [
   { title: "Home", path: ROUTES.home },
@@ -50,9 +61,10 @@ export default function Header() {
             drawerOpen={drawerOpen}
             setDrawerOpen={setDrawerOpen}
             MENUS={MENUS}
+            IconMenu={IconMenu}
           />
         ) : (
-          <HeaderTablet MENUS={MENUS} />
+          <HeaderTablet MENUS={MENUS} IconMenu={IconMenu} />
         )}
 
         <Box

@@ -23,13 +23,13 @@ export default function ListProducts({
   return (
     <>
       {listProducts?.map((product) => (
-        <Grid sx={{ ...sx }} className="animate-scale" key={product.name}>
+        <Grid sx={{ ...sx, cursor:'pointer' }} className="animate-shadow" key={product.name}>
           <Card sx={{ p: 2 }}>
             <Box
               sx={{
                 position: "relative",
                 width: "100%",
-                height: { sm: 180, xs: 90 },
+                height: { sm: 120, xs: 70 },
               }}
             >
               <Image

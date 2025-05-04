@@ -3,7 +3,7 @@ export function convertSlugToText(slug = "") {
   const slugDeCode: string = decodeURIComponent(slug);
 
   return slugDeCode
-    .split('&')
+    .split('-')
     .map((word) =>
       word.charAt(0).toUpperCase() + word.slice(1)
     )

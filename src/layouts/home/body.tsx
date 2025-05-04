@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function Content() {
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4, textAlign:'center' }}>
       <HeroSection />
       <br />
       <BannerScroll />

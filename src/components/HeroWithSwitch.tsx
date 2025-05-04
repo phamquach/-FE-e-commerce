@@ -48,7 +48,7 @@ export default function HeroSlider() {
 
   return (
     <FadeIn initial={{ opacity: 0, y: 50 }}>
-      <Container maxWidth="lg" sx={{ py: 10 }}>
+      <Container maxWidth="lg" sx={{ py: 10, textAlign:'start' }}>
         <Grid
           container
           spacing={4}

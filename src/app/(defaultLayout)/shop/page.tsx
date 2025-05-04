@@ -42,7 +42,7 @@ function Shop() {
 
         <Box
           display="grid"
-          gridTemplateColumns={{ xs: "repeat(2, 1fr)", sm: "repeat(4, 1fr)" }}
+          gridTemplateColumns={{ xs: "repeat(2, 1fr)", sm: "repeat(5, 1fr)" }}
           gap={3}
         >
           <ListProducts listProducts={products.data?.data} />
@@ -64,7 +64,7 @@ function Shop() {
 
         <Box
           display="grid"
-          gridTemplateColumns={{ xs: "repeat(2, 1fr)", sm: "repeat(4, 1fr)" }}
+          gridTemplateColumns={{ xs: "repeat(2, 1fr)", sm: "repeat(6, 1fr)" }}
           gap={3}
         >
           <ListProducts listProducts={products.data?.data} />
