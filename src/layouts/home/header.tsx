@@ -23,13 +23,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import HomeIcon from "@mui/icons-material/Home";
 import GroupsIcon from "@mui/icons-material/Groups";
-import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 const MENUS = [
   { title: "Home", path: ROUTES.home, icon: <HomeIcon /> },
   { title: "Shop", path: ROUTES.shop, icon: <ShoppingBasketIcon /> },
   { title: "About", path: "#about", icon: <GroupsIcon /> },
-  { title: "Contact", path: "#aasd", icon: <RecentActorsIcon /> },
 ];
 
 export default function Header() {

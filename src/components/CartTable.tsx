@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useRouter } from "next/navigation";
-import { formatCurrency } from "@/lib/formatCurrency";
+import { formatCurrency } from "@/lib";
 
 interface CartItem {
   id: number;

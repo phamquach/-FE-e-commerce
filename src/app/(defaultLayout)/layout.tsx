@@ -13,7 +13,7 @@ export default function RootLayout({
       {/* Header */}
       <Banner />
       <Header />
-      <Box py={2}>{children}</Box>
+      <Box p={{ md: 2, xs: '16px 5px'}} px={{md: 5}}>{children}</Box>
       {/* Footer */}
       <Footer />
     </>

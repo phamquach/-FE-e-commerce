@@ -28,7 +28,7 @@ const Footer = () => {
         <Grid container spacing={4} justifyContent="space-between">
           <Grid>
             <Typography variant="h6" fontWeight={700} color="#1e0e62">
-              Startup 3
+              Startup
             </Typography>
             <Typography mt={2} color="#a1a1b5">
               Be sure to take a look at our <br />

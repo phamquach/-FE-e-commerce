@@ -1,4 +1,5 @@
 "use client";
+import { convertSpaceToDash } from "@/lib";
 import ROUTES from "@/routes/routes";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -59,7 +60,7 @@ export default function CategoryBanner({
     <Box
       sx={{
         p: { xs: 1, sm: 2 },
-        bgcolor: "#f5f5f5",
+        bgcolor: "#e4eeeeb0",
         position: "relative",
         overflow: "hidden",
         borderRadius: 2,
@@ -128,7 +129,7 @@ export default function CategoryBanner({
           <Box
             onClick={() =>
               router.push(
-                `${ROUTES.category}/${category.name.replace(/\s+/g, "-")}/${category.categoryId}`
+                `${ROUTES.category}/${convertSpaceToDash(category.name)}/${category.categoryId}`
               )
             }
             key={category.categoryId}

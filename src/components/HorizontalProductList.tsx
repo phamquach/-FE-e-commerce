@@ -1,8 +1,10 @@
 "use client";
-import { formatCurrency } from "@/lib";
+import { convertSpaceToDash, formatCurrency } from "@/lib";
+import ROUTES from "@/routes/routes";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Product {
   id: number;
@@ -89,10 +91,11 @@ export default function HorizontalProductList() {
   return (
     <Box
       sx={{
+        bgcolor: '#e4eeeeb0',
         overflowX: "auto",
         whiteSpace: "nowrap",
         p: 2,
-        border: "1px solid #1976d25e",
+        border: "1px solid white",
         borderRadius: 2,
         display: "flex",
         gap: 2,
@@ -102,6 +105,8 @@ export default function HorizontalProductList() {
     >
       {products.map((product) => (
         <Box
+          component={Link}
+          href={`${ROUTES.product}/${convertSpaceToDash(product.name)}/${product.id}`}
           key={product.id}
           className="parent-animate-scale"
           sx={{
@@ -109,7 +114,7 @@ export default function HorizontalProductList() {
             width: { sm: 200, xs: "auto" },
             bgcolor: "white",
             borderRadius: 2,
-            boxShadow: 2,
+            boxShadow: 4,
             textAlign: "left",
             p: 2,
             position: "relative",
@@ -148,7 +153,7 @@ export default function HorizontalProductList() {
               mt: 1,
             }}
           >
-            <Typography variant="h6" color="primary">
+            <Typography variant="subtitle2" color="primary">
               {formatCurrency(product.price)}
             </Typography>
             <Tooltip title="Thêm vào giỏ hàng" arrow>

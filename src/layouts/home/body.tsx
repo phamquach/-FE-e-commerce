@@ -21,6 +21,7 @@ export default function Content() {
         textAlign="center"
         sx={{ mt: 6 }}
         fontFamily={"var(--font-header-default) !important"}
+        className="title"
       >
         Featured Products
       </Typography>
@@ -44,6 +45,7 @@ export default function Content() {
         textAlign="center"
         sx={{ mt: 6 }}
         fontFamily={"var(--font-header-default) !important"}
+        className="title"
       >
         New Collections
       </Typography>

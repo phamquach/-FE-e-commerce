@@ -1,32 +1,56 @@
 "use client";
-import ListProducts from "@/components/ListProduct";
-import { useCallAPI } from "@/hooks/useCallAPI";
-import { convertSlugToText } from "@/lib";
-import { Box, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import ROUTES from "@/routes/routes";
+import { convertSlugToText } from "@/lib";
+import { Box, Typography } from "@mui/material";
+import { useCallAPI } from "@/hooks/useCallAPI";
+import ListProducts from "@/components/ListProduct";
+import Breadcrumbs from "@/components/Breadcrumbs";
+
+const API = `${process.env.API_URL}/api/products?categoryId=`;
 export default function ProductDetail({
   params,
 }: {
   params: Promise<{ slug: string; id: string }>;
 }) {
   const [value, setData] = useState<{ id: string; slug: string }>();
-  const result = useCallAPI(
-    value ? `${process.env.API_URL}/api/products?categoryId=${value?.id}` : null
-  );
+  const result = useCallAPI(value ? API + `${value?.id}` : null);
+  const path = usePathname();
   useEffect(() => {
     params.then((res) => setData(res));
   }, [params]);
   return (
-    <Container>
-      <Typography variant="h5">{convertSlugToText(value?.slug)}</Typography>
-
+    <>
+      <Breadcrumbs
+        listMenu={[
+          "home",
+          ...(path
+            .split("/")
+            .splice(1, path.split("/").length - 2)
+            .filter((item) => item !== "category") as (keyof typeof ROUTES)[]),
+        ]}
+      />
+      <br />
+      <Typography variant="h5" className="title">
+        {convertSlugToText(value?.slug)}
+      </Typography>
+      <br />
+      <Box className="title">
+        <Typography variant="h5">Loc San Pham</Typography>
+      </Box>
+      <br />
+      {/* List Products */}
       <Box
         display="grid"
-        gridTemplateColumns={{ xs: "repeat(2, 1fr)", sm: "repeat(4, 1fr)" }}
+        gridTemplateColumns={{ xs: "repeat(2, 1fr)", sm: "repeat(5, 1fr)" }}
         gap={3}
+        bgcolor={"white"}
+        borderRadius={2}
+        p={2}
       >
         <ListProducts listProducts={result.data?.data} />
       </Box>
-    </Container>
+    </>
   );
 }

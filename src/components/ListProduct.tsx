@@ -1,5 +1,6 @@
 "use client";
-import { formatCurrency } from "@/lib";
+import { convertSpaceToDash, formatCurrency } from "@/lib";
+import ROUTES from "@/routes/routes";
 import { Theme } from "@emotion/react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
@@ -12,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ListProducts({
   listProducts,
@@ -23,7 +25,13 @@ export default function ListProducts({
   return (
     <>
       {listProducts?.map((product) => (
-        <Grid sx={{ ...sx, cursor:'pointer' }} className="animate-shadow" key={product.name}>
+        <Grid
+          sx={{ ...sx, cursor: "pointer" }}
+          className="animate-shadow"
+          key={product.name}
+          component={Link}
+          href={`${ROUTES.product}/${convertSpaceToDash(product.name)}/${product.productId}`}
+        >
           <Card sx={{ p: 2 }}>
             <Box
               sx={{
@@ -46,7 +54,7 @@ export default function ListProducts({
                 {product.name}
               </Typography>
               <Typography
-                variant="subtitle1"
+                variant="subtitle2"
                 display={"flex"}
                 justifyContent={"space-between"}
                 alignItems={"center"}
@@ -55,7 +63,10 @@ export default function ListProducts({
               >
                 {formatCurrency(product.price)}
                 <Tooltip title="Thêm vào giỏ hàng">
-                  <AddShoppingCartIcon sx={{ cursor: "pointer" }} />
+                  <AddShoppingCartIcon
+                    sx={{ cursor: "pointer" }}
+                    fontSize="small"
+                  />
                 </Tooltip>
               </Typography>
             </CardContent>
