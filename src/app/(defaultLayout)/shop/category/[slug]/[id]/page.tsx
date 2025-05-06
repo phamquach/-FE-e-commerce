@@ -7,6 +7,7 @@ import { Box, Typography } from "@mui/material";
 import { useCallAPI } from "@/hooks/useCallAPI";
 import ListProducts from "@/components/ListProduct";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import RangeSlider from "@/components/ProductFilterByPrice";
 
 const API = `${process.env.API_URL}/api/products?categoryId=`;
 export default function ProductDetail({
@@ -37,7 +38,8 @@ export default function ProductDetail({
       </Typography>
       <br />
       <Box className="title">
-        <Typography variant="h5">Loc San Pham</Typography>
+        <Typography variant="h5">Loc San Pham Theo Giá</Typography>
+        <RangeSlider />
       </Box>
       <br />
       {/* List Products */}

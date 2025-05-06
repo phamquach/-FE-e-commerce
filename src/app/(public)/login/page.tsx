@@ -34,7 +34,7 @@ const schema = yup.object().shape({
 });
 
 const Background = styled.div`
-  background-image: url("Background.png");
+  background: linear-gradient(135deg, white, #00d1b2, #ff7f5091);
   background-size: cover;
   background-position: center;
   height: 100%;

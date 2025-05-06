@@ -95,3 +95,8 @@ a {
     background-color: white;
     border-radius: var(--boder-radius-default);
 }
+
+/* Border radius */
+.border-radius-default{
+    border-radius: var(--boder-radius-default);
+}

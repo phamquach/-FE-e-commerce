@@ -2,15 +2,13 @@
 import { convertSpaceToDash, formatCurrency } from "@/lib";
 import ROUTES from "@/routes/routes";
 import { Theme } from "@emotion/react";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
   Box,
   Card,
   CardContent,
   Grid,
   SxProps,
-  Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,20 +35,20 @@ export default function ListProducts({
               sx={{
                 position: "relative",
                 width: "100%",
-                height: { sm: 120, xs: 70 },
+                height: { sm: 200, xs: 150 },
               }}
             >
               <Image
-                src="/Background.png"
+                src="/Ao.jpg"
                 alt="Product 1"
                 fill
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "contain" }}
                 sizes="(max-width: 600px) 100vw, 600px"
                 priority
               />
             </Box>
             <CardContent sx={{ px: 0, paddingBottom: "0 !important" }}>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="textSecondary" textAlign={'left'}>
                 {product.name}
               </Typography>
               <Typography
@@ -62,12 +60,6 @@ export default function ListProducts({
                 sx={{ mt: 1 }}
               >
                 {formatCurrency(product.price)}
-                <Tooltip title="Thêm vào giỏ hàng">
-                  <AddShoppingCartIcon
-                    sx={{ cursor: "pointer" }}
-                    fontSize="small"
-                  />
-                </Tooltip>
               </Typography>
             </CardContent>
           </Card>

@@ -1,18 +1,24 @@
-import BannerScroll from "@/components/BannerScroll";
+"use client";
+import Link from "next/link";
 import DemoProduct from "@/components/DemoProduct";
 import HeroSection from "@/components/HeroSection";
-import HeroWithSwitch from "@/components/HeroWithSwitch";
 import ListProducts from "@/components/ListProduct";
+import BannerScroll from "@/components/BannerScroll";
+import HeroWithSwitch from "@/components/HeroWithSwitch";
+import { useCallAPI } from "@/hooks/useCallAPI";
 import { Container, Grid, Typography } from "@mui/material";
-import Link from "next/link";
 
 export default function Content() {
+  const products = useCallAPI(`${process.env.API_URL}/api/products`);
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4, textAlign:'center' }}>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4, textAlign: "center" }}>
       <HeroSection />
       <br />
       <BannerScroll />
       <HeroWithSwitch />
+      <DemoProduct reverse={true} />
+      <DemoProduct />
+      <DemoProduct reverse={true} />
       {/* Product Section */}
       <Typography
         variant="h4"
@@ -31,10 +37,11 @@ export default function Content() {
         gap={3}
         sx={{ mt: 2, justifyContent: "center" }}
       >
-        <ListProducts listProducts={[]} />
+        <ListProducts listProducts={products.data?.data} />
       </Grid>
 
       <Link href={""} className="text-underline">
+        <br />
         Xem Thêm &gt;&gt;
       </Link>
 
@@ -55,15 +62,12 @@ export default function Content() {
         gap={3}
         sx={{ mt: 2, justifyContent: "center" }}
       >
-        <ListProducts listProducts={[]} />
+        <ListProducts listProducts={products.data?.data} />
       </Grid>
-
       <Link href={""} className="text-underline">
+        <br />
         Xem Thêm &gt;&gt;
       </Link>
-      <DemoProduct />
-      <DemoProduct reverse={true} />
-      <DemoProduct />
     </Container>
   );
 }

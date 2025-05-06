@@ -165,6 +165,7 @@ export default function CategoryBanner({
                 target.onerror = null;
                 target.src = "Demo.webp";
               }}
+              sizes="100px"
             />
             <Typography variant="body2" fontSize={{ xs: 10, sm: 12 }} noWrap>
               {category.name}
