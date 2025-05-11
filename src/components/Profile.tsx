@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/contexts/authContext";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
 import Avatar from "@mui/material/Avatar";
@@ -14,6 +15,8 @@ import * as React from "react";
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { logout } = useAuth();
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -88,7 +91,13 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem sx={{ pr: { sm: "5rem", xs: "auto" } }} onClick={handleClose}>
+        <MenuItem
+          sx={{ pr: { sm: "5rem", xs: "auto" } }}
+          onClick={() => {
+            handleClose();
+            logout();
+          }}
+        >
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

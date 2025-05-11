@@ -24,6 +24,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import HomeIcon from "@mui/icons-material/Home";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import { useAuth } from "@/contexts/authContext";
 const MENUS = [
   { title: "Home", path: ROUTES.home, icon: <HomeIcon /> },
   { title: "Shop", path: ROUTES.shop, icon: <ShoppingBasketIcon /> },
@@ -35,6 +36,7 @@ export default function Header() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const { user } = useAuth();
 
   return (
     <AppBar
@@ -84,7 +86,7 @@ export default function Header() {
             }}
             sx={{ flex: 1, maxWidth: 500 }}
           />
-          {true ? (
+          {user ? (
             <>
               <Link href={ROUTES.cart}>
                 <IconButton color="inherit">
