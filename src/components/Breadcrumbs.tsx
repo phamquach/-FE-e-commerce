@@ -17,7 +17,7 @@ function Breadcrumbs({ listMenu }: { listMenu?: Array<keyof typeof ROUTES> }) {
       {listMenu?.map((menu, index) => {
         if (index === listMenu.length - 1) {
           return (
-            <Typography key={index} sx={{ color: "text.primary" }} variant="h6">
+            <Typography key={index} sx={{ color: "text.primary" }}>
               {convertSlugToText(menu)}
             </Typography>
           );

@@ -1,11 +1,11 @@
 "use client";
-import ListProducts from "@/components/ListProduct";
 import BannerScroll from "@/components/BannerScroll";
 import CategoryBanner from "@/components/CategoryBanner";
 import CategorySkeleton from "@/components/CategorySkeleton";
 import HorizontalProductList from "@/components/HorizontalProductList";
 import { Box, Typography } from "@mui/material";
 import { useCallAPI } from "@/hooks/useCallAPI";
+import ListProducts from "@/components/ListProduct";
 
 function Shop() {
   const categories = useCallAPI(`${process.env.API_URL}/api/categories`);
@@ -25,12 +25,18 @@ function Shop() {
         <HorizontalProductList />
       </Box>
 
-      {/* Phone  */}
+      <Typography variant="h5" textAlign={"center"} className="title">
+        Dành cho bạn
+      </Typography>
       <Box
         display="grid"
-        gridTemplateColumns={{ xs: "repeat(2, 1fr)", sm: "repeat(5, 1fr)", xl: "repeat(7, 1fr)" }}
+        gridTemplateColumns={{
+          xs: "repeat(2, 1fr)",
+          sm: "repeat(3, 1fr)",
+          lg: "repeat(5, 1fr)",
+          xl: "repeat(7, 1fr)",
+        }}
         gap={3}
-        bgcolor={"white"}
         p={2}
         borderRadius={2}
       >

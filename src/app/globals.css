@@ -91,12 +91,12 @@ a {
 
 /* Title */
 .title {
-    padding:15px;
+    padding: 15px;
     background-color: white;
     border-radius: var(--boder-radius-default);
 }
 
 /* Border radius */
-.border-radius-default{
+.border-radius-default {
     border-radius: var(--boder-radius-default);
 }

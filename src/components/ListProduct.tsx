@@ -25,6 +25,7 @@ export default function ListProducts({
       {listProducts?.map((product) => (
         <Grid
           sx={{ ...sx, cursor: "pointer" }}
+          height={'max-content'}
           className="animate-shadow"
           key={product.name}
           component={Link}

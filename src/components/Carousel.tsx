@@ -4,8 +4,9 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Box, IconButton } from "@mui/material";
 import BasicModal from "./Modal";
+import SkeletonCarousell from "./CarousellSkeleton";
 
-function Carousell({ Images }: { Images: string[] }) {
+function Carousell({ Images }: { Images?: string[] }) {
   const [index, setIndex] = useState<number>(1);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showLeft, setShowLeft] = useState(false);
@@ -44,6 +45,9 @@ function Carousell({ Images }: { Images: string[] }) {
       if (ref) ref.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  if (!Images) {
+    return <SkeletonCarousell />;
+  }
   return (
     <Box height={"max-content"}>
       <BasicModal
@@ -144,7 +148,7 @@ function Carousell({ Images }: { Images: string[] }) {
                   alt={`Hình ${_index + 1}`}
                   fill
                   style={{
-                    objectFit: "cover",
+                    objectFit: "contain",
                     borderRadius: "4px",
                   }}
                   sizes="100px"

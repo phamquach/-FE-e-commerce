@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <Container maxWidth="sm" sx={{ textAlign: "center", py: 8 }}>
+    <Container maxWidth="sm" sx={{ textAlign: "center", py: 3 }}>
       <Typography
         variant="h3"
         component="h1"

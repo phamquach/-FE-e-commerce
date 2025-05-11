@@ -11,7 +11,7 @@ import { Container, Grid, Typography } from "@mui/material";
 export default function Content() {
   const products = useCallAPI(`${process.env.API_URL}/api/products`);
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4, textAlign: "center" }}>
+    <Container maxWidth="lg" sx={{ mb: 4, textAlign: "center" }}>
       <HeroSection />
       <br />
       <BannerScroll />
@@ -33,7 +33,12 @@ export default function Content() {
       </Typography>
       <Grid
         display={"grid"}
-        gridTemplateColumns={{ sm: "repeat(5, 1fr)", xs: "repeat(2, 1fr)" }}
+        gridTemplateColumns={{
+          xs: "repeat(2, 1fr)",
+          sm: "repeat(3, 1fr)",
+          lg: "repeat(5, 1fr)",
+          xl: "repeat(7, 1fr)",
+        }}
         gap={3}
         sx={{ mt: 2, justifyContent: "center" }}
       >
@@ -58,7 +63,12 @@ export default function Content() {
       </Typography>
       <Grid
         display={"grid"}
-        gridTemplateColumns={{ sm: "repeat(5, 1fr)", xs: "repeat(2, 1fr)" }}
+        gridTemplateColumns={{
+          xs: "repeat(2, 1fr)",
+          sm: "repeat(3, 1fr)",
+          lg: "repeat(5, 1fr)",
+          xl: "repeat(7, 1fr)",
+        }}
         gap={3}
         sx={{ mt: 2, justifyContent: "center" }}
       >
