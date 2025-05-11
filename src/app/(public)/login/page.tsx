@@ -21,8 +21,9 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import { useAuth } from "@/contexts/authContext";
-import loginAPI from "@/services/api/login_API";
+import loginAPI from "@/services/api/login";
 import ROUTE from "@/routes/routes";
+import { useRouter } from "next/navigation";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -56,6 +57,7 @@ const FormContainer = styled.div`
 
 export default function SignInForm() {
   const { login } = useAuth();
+  const route = useRouter();
   const [showPassword, setShowPassword] = React.useState(false);
   const [messageState, setMessageState] = React.useState<null | string>(null);
   const {
@@ -77,6 +79,7 @@ export default function SignInForm() {
       const response = await loginAPI(email, password);
       setMessageState(null);
       login(response.data.user);
+      route.push(ROUTE.home);
     } catch {
       setMessageState("Login failed. Wrong email or password.");
     }
