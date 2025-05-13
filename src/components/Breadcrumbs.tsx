@@ -7,8 +7,10 @@ import {
   Typography,
 } from "@mui/material";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { memo } from "react";
 
 function Breadcrumbs({ listMenu }: { listMenu?: Array<keyof typeof ROUTES> }) {
+  console.log('re-render 1')
   return (
     <BreadcrumbsMUI
       aria-label="breadcrumb"
@@ -42,4 +44,4 @@ function Breadcrumbs({ listMenu }: { listMenu?: Array<keyof typeof ROUTES> }) {
   );
 }
 
-export default Breadcrumbs;
+export default memo(Breadcrumbs);

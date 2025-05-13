@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import ROUTES from "@/routes/routes";
-import AccountMenu from "@/components/Profile";
+import AccountMenu from "@/components/AccountMenu";
 import HeaderMobile from "@/components/HeaderMobile";
 import HeaderTablet from "@/components/HeaderTablet";
 import {

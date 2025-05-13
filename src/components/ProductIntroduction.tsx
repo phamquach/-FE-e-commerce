@@ -2,6 +2,7 @@ import { formatCurrency } from "@/lib";
 import { Share } from "@mui/icons-material";
 import { Box, IconButton, Rating, Typography } from "@mui/material";
 import SkeletonProductIntroduction from "./ProductIntroductionSkeleton";
+import { memo } from "react";
 
 function ProductIntroduction({ data }: { data: Products }) {
   if (!data) {
@@ -37,4 +38,4 @@ function ProductIntroduction({ data }: { data: Products }) {
   );
 }
 
-export default ProductIntroduction;
+export default memo(ProductIntroduction);

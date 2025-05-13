@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "@/contexts/authContext";
+import ROUTES from "@/routes/routes";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
 import Avatar from "@mui/material/Avatar";
@@ -10,12 +11,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 
 export default function AccountMenu() {
+  const route = useRouter();
+  const { logout, user } = useAuth();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { logout, user } = useAuth();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -35,8 +38,8 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }} src={""}>
-              {user?.lastName}
+            <Avatar sx={{ width: 32, height: 32 }} src={user?.avt}>
+              {user?.lastName[0]}
             </Avatar>
           </IconButton>
         </Tooltip>
@@ -78,8 +81,14 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem sx={{ pr: { sm: "5rem", xs: "auto" } }} onClick={handleClose}>
-          <Avatar src="Background.png" />{" "}
+        <MenuItem
+          sx={{ pr: { sm: "5rem", xs: "auto" } }}
+          onClick={() => {
+            handleClose();
+            route.push(ROUTES.profile);
+          }}
+        >
+          <Avatar src={user?.avt} />
           {`${user?.firstName} ${user?.lastName}`}
         </MenuItem>
         <Divider />

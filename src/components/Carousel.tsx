@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Box, IconButton } from "@mui/material";
@@ -162,4 +162,4 @@ function Carousell({ Images }: { Images?: string[] }) {
   );
 }
 
-export default Carousell;
+export default memo(Carousell);

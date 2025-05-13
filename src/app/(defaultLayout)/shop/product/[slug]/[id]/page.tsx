@@ -1,20 +1,30 @@
 "use client";
+
 import { Box, Grid, Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import AddressSearchModal from "@/components/AddressSearchModal";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Carousell from "@/components/Carousel";
 import ProductIntroduction from "@/components/ProductIntroduction";
 import PurchasePanel from "@/components/PurchasePanel";
+import ListProducts from "@/components/ListProduct";
+
 import { useCallAPI } from "@/hooks/useCallAPI";
 import ROUTES from "@/routes/routes";
-import ListProducts from "@/components/ListProduct";
 
 const API = `${process.env.API_URL}/api/products?`;
 
 const ListProduct = [
+  "Demo.webp",
+  "Ao.jpg",
+  "Demo.webp",
+  "Ao.jpg",
+  "Background.png",
+  "Ao.jpg",
+  "Demo.webp",
+  "Background.png",
   "Demo.webp",
   "Ao.jpg",
   "Demo.webp",
@@ -30,18 +40,21 @@ function ViewDetailsProduct({ params }: { params: Promise<{ id: string }> }) {
 
   const [idProduct, setIdProduct] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
-
   const [addressInfo, setAddressInfo] = useState({
     open: false,
     selected: "Chọn địa chỉ giao hàng",
   });
 
+  // Gọi API lấy chi tiết sản phẩm theo ID
   const { data } = useCallAPI(idProduct ? `${API}id=${idProduct}` : null);
+
+  // Gọi API lấy các sản phẩm trong cùng danh mục
   const ProductsInCategory = useCallAPI(
     data?.data[0]?.categoryId
       ? `${API}categoryId=${data?.data[0]?.categoryId}`
       : null
   );
+
   useEffect(() => {
     (async () => {
       const { id } = await params;
@@ -53,42 +66,56 @@ function ViewDetailsProduct({ params }: { params: Promise<{ id: string }> }) {
     setAddressInfo((prev) => ({ ...prev, selected: addr, open: false }));
   };
 
+  const listProducts = useMemo(() => {
+    return ProductsInCategory.data?.data.filter(
+      (item: Products) => item.productId !== data?.data[0]?.productId
+    );
+  }, [ProductsInCategory.data?.data, data?.data]);
+
+  // Tạo đường dẫn breadcrumbs
+  const LinkPath = useMemo(() => {
+    return path
+      .split("/")
+      .slice(1, -1)
+      .filter(
+        (item): item is keyof typeof ROUTES =>
+          item in ROUTES && item !== "product"
+      );
+  }, [path]);
+
+  const listMenu = useMemo(
+    () => ["home", ...LinkPath] as Array<keyof typeof ROUTES>,
+    [LinkPath]
+  );
+
   return (
     <>
-      <Breadcrumbs
-        listMenu={[
-          "home",
-          ...(path
-            .split("/")
-            .slice(1, -1)
-            .filter((item) => item !== "product") as (keyof typeof ROUTES)[]),
-        ]}
-      />
-
+      {/* Breadcrumbs */}
+      <Breadcrumbs listMenu={listMenu} />
       <br />
 
+      {/* Grid layout 3 cột: hình ảnh - mô tả - thanh toán */}
       <Grid
-        display={"grid"}
-        gridTemplateColumns={{ md: "repeat(3,1fr)", xs: "repeat(1,1fr)" }}
+        display="grid"
+        gridTemplateColumns={{ md: "repeat(3, 1fr)", xs: "repeat(1, 1fr)" }}
         gap={2}
       >
-        {/* Cột 1: Hình ảnh */}
+        {/* Cột 1: Hình ảnh sản phẩm */}
         <Box bgcolor="white" p={2} className="border-radius-default">
           <Carousell Images={ListProduct} />
         </Box>
 
-        {/* Cột 2: Giới thiệu */}
+        {/* Cột 2: Mô tả sản phẩm */}
         <Box bgcolor="white" p={2} className="border-radius-default">
           <ProductIntroduction data={data?.data[0]} />
         </Box>
 
-        {/* Cột 3: Địa chỉ & mua hàng */}
+        {/* Cột 3: Thanh toán & địa chỉ */}
         <Box
-          display={"flex"}
-          flexDirection={"column"}
+          display="flex"
+          flexDirection="column"
           gap={2}
           bgcolor="white"
-          p={2}
           className="border-radius-default"
         >
           <PurchasePanel
@@ -112,27 +139,28 @@ function ViewDetailsProduct({ params }: { params: Promise<{ id: string }> }) {
       />
       <br />
 
-      {/* Đánh giá */}
-      <Box bgcolor={"white"} p={2} className="border-radius-default">
+      {/* Đánh giá sản phẩm */}
+      <Box bgcolor="white" p={2} className="border-radius-default">
         Đánh giá
       </Box>
       <br />
 
-      {/* Các sản phầm tương tự */}
+      {/* Các sản phẩm tương tự */}
       <Typography
         variant="h6"
-        bgcolor={"white"}
+        bgcolor="white"
         p={2}
         className="border-radius-default"
-        textAlign={"center"}
+        textAlign="center"
         color="var(--background-default)"
       >
         Các sản phẩm tương tự
       </Typography>
+
       <Box>
         <br />
         <Box
-          display={"grid"}
+          display="grid"
           gridTemplateColumns={{
             xs: "repeat(2, 1fr)",
             sm: "repeat(3, 1fr)",
@@ -141,11 +169,7 @@ function ViewDetailsProduct({ params }: { params: Promise<{ id: string }> }) {
           }}
           gap={3}
         >
-          <ListProducts
-            listProducts={ProductsInCategory.data?.data.filter(
-              (item: Products) => item.productId != data?.data[0]?.productId
-            )}
-          />
+          <ListProducts listProducts={listProducts} />
         </Box>
       </Box>
     </>

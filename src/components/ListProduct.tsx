@@ -8,12 +8,13 @@ import {
   CardContent,
   Grid,
   SxProps,
-  Typography
+  Typography,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { memo } from "react";
 
-export default function ListProducts({
+export default memo(function ListProducts({
   listProducts,
   sx,
 }: {
@@ -25,7 +26,7 @@ export default function ListProducts({
       {listProducts?.map((product) => (
         <Grid
           sx={{ ...sx, cursor: "pointer" }}
-          height={'max-content'}
+          height={"max-content"}
           className="animate-shadow"
           key={product.name}
           component={Link}
@@ -49,7 +50,11 @@ export default function ListProducts({
               />
             </Box>
             <CardContent sx={{ px: 0, paddingBottom: "0 !important" }}>
-              <Typography variant="body2" color="textSecondary" textAlign={'left'}>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                textAlign={"left"}
+              >
                 {product.name}
               </Typography>
               <Typography
@@ -68,4 +73,4 @@ export default function ListProducts({
       ))}
     </>
   );
-}
+});
