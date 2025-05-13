@@ -6,6 +6,7 @@ interface User {
     address: string;
     phoneNumber: string;
     role: string;
+    avt: string
 }
 
 interface UserLogin {

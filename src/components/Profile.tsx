@@ -15,7 +15,7 @@ import * as React from "react";
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -35,8 +35,8 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }} src="Background.png">
-              M
+            <Avatar sx={{ width: 32, height: 32 }} src={""}>
+              {user?.lastName}
             </Avatar>
           </IconButton>
         </Tooltip>
@@ -79,10 +79,8 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem sx={{ pr: { sm: "5rem", xs: "auto" } }} onClick={handleClose}>
-          <Avatar src="Background.png" /> Profile
-        </MenuItem>
-        <MenuItem sx={{ pr: { sm: "5rem", xs: "auto" } }} onClick={handleClose}>
-          <Avatar src="Background.png" /> My account
+          <Avatar src="Background.png" />{" "}
+          {`${user?.firstName} ${user?.lastName}`}
         </MenuItem>
         <Divider />
         <MenuItem sx={{ pr: { sm: "5rem", xs: "auto" } }} onClick={handleClose}>

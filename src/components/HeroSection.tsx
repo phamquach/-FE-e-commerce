@@ -1,8 +1,10 @@
+import { useAuth } from "@/contexts/authContext";
 import ROUTES from "@/routes/routes";
 import { Box, Button, Container, Typography } from "@mui/material";
 import Link from "next/link";
 
 export default function HeroSection() {
+  const { user } = useAuth();
   return (
     <Container maxWidth="sm" sx={{ textAlign: "center", py: 3 }}>
       <Typography
@@ -31,7 +33,7 @@ export default function HeroSection() {
       </Typography>
 
       <Box>
-        <Link href={ROUTES.login}>
+        <Link href={user ? ROUTES.shop : ROUTES.login}>
           <Button
             variant="contained"
             sx={{

@@ -16,6 +16,7 @@ import {
   Box,
   InputAdornment,
   IconButton,
+  Grid,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -65,6 +66,7 @@ const FormContainer = styled.div`
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = React.useState(false);
+  const [verifyCode, setVerifyCode] = React.useState<string | null>(null);
   const [messageState, setMessageState] = React.useState<null | string>(null);
   const {
     register,
@@ -77,6 +79,7 @@ export default function SignUpForm() {
   const onSubmit = async (data: UserRegister) => {
     try {
       console.log(data);
+      setVerifyCode("");
     } catch (error) {
       if (error instanceof Error) {
         setMessageState(error.message);
@@ -168,6 +171,26 @@ export default function SignUpForm() {
               ),
             }}
           />
+
+          {verifyCode !== null && (
+            <Grid
+              display={"grid"}
+              gridTemplateColumns={{ sm: "auto auto", xs: "auto" }}
+              gap={2}
+            >
+              <TextField fullWidth margin="normal" label="Verify Code" />
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: "var(--background-default)",
+                  mt: { xs: 0, md: 2 },
+                  mb: 1,
+                }}
+              >
+                Send
+              </Button>
+            </Grid>
+          )}
 
           <Box display="flex" alignItems="center" mt={2}>
             <Checkbox {...register("terms")} color="primary" id="check-box" />
