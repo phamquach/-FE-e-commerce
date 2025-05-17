@@ -115,6 +115,7 @@ function ViewDetailsProduct({ params }: { params: Promise<{ id: string }> }) {
       </Grid>
 
       {/* Đánh giá sản phẩm */}
+      <br />
       <Box bgcolor="white" p={2} className="border-radius-default">
         Đánh giá
       </Box>
