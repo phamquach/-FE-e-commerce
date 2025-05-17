@@ -4,24 +4,33 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { formatCurrency } from "@/lib";
 import PurchasePanelSkeleton from "./PurchasePanelSkeleton";
+import ROUTES from "@/routes/routes";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/authContext";
 
 type Props = {
-  quantity: number;
+  quantity?: number;
   setQuantity: (val: number) => void;
-  maxQuantity: number;
-  price: number;
-  address: string;
-  onAddressClick: () => void;
+  maxQuantity?: number;
+  price?: number;
+  productId: string | null;
 };
 
 export default function PurchasePanel({
   quantity,
   setQuantity,
   maxQuantity,
-  address,
-  onAddressClick,
   price,
+  productId,
 }: Props) {
+  const route = useRouter();
+  const { user } = useAuth();
+  const handleAddTocart = () => {
+    if (user) {
+      return route.push(ROUTES.shop);
+    }
+    route.push(ROUTES.login);
+  };
   if (!quantity || !price) {
     return <PurchasePanelSkeleton />;
   }
@@ -34,19 +43,6 @@ export default function PurchasePanel({
       p={2}
       className="border-radius-default"
     >
-      {/* Địa chỉ nhận hàng */}
-      <Box>
-        <Typography color="textSecondary">Địa chỉ nhận hàng</Typography>
-        <Typography
-          width="max-content"
-          color="info"
-          sx={{ cursor: "pointer" }}
-          onClick={onAddressClick}
-        >
-          {address}
-        </Typography>
-      </Box>
-
       {/* Chọn số lượng */}
       <Box display="inline-flex" alignItems="end" gap={2}>
         <Typography color="textSecondary">Số lượng: </Typography>
@@ -95,11 +91,13 @@ export default function PurchasePanel({
             minWidth: "40%",
             bgcolor: "var(--background-default)",
           }}
+          onClick={() => route.push(`${ROUTES.buynow}/${productId}`)}
         >
           Buy Now
         </Button>
         <Button
           variant="contained"
+          onClick={handleAddTocart}
           sx={{
             width: "max-content",
             minWidth: "40%",

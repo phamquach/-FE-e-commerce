@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import ROUTES from "@/routes/routes";
 import { convertSlugToText } from "@/lib";
@@ -21,17 +21,21 @@ export default function ProductDetail({
   useEffect(() => {
     params.then((res) => setData(res));
   }, [params]);
+
+  const LinkPath = useMemo(() => {
+    return path
+      .split("/")
+      .splice(1, path.split("/").length - 2)
+      .filter((item) => item !== "category") as (keyof typeof ROUTES)[];
+  }, [path]);
+
+  const listMenu = useMemo(
+    () => ["home", ...LinkPath] as Array<keyof typeof ROUTES>,
+    [LinkPath]
+  );
   return (
     <>
-      <Breadcrumbs
-        listMenu={[
-          "home",
-          ...(path
-            .split("/")
-            .splice(1, path.split("/").length - 2)
-            .filter((item) => item !== "category") as (keyof typeof ROUTES)[]),
-        ]}
-      />
+      <Breadcrumbs listMenu={listMenu} />
       <br />
       <Typography variant="h5" className="title">
         {convertSlugToText(value?.slug)}

@@ -29,11 +29,9 @@ function ProfileDesktop() {
         <Avatar
           src={user?.avt}
           sx={{
-            maxHeight: 300,
-            maxWidth: 300,
-            minWidth: 150,
-            minHeight: 150,
-            fontSize: "10rem",
+            width: { sm: 150, xs: 100 },
+            height: { sm: 150, xs: 100 },
+            fontSize: { xs: "5rem", sm: "8rem", md: "10rem" },
           }}
         >
           {user?.lastName[0]}
@@ -92,10 +90,23 @@ function ProfileDesktop() {
           SĐT: &nbsp; {user?.phoneNumber}
         </Typography>
         <br />
+         <Typography
+          variant="h6"
+          fontFamily={"var(--font-header-default) !important"}
+          sx={{ fontWeight: 50 }}
+        >
+          Role: &nbsp; {user?.role}
+        </Typography>
+        <br />
         <Button
           variant="contained"
           endIcon={<EditIcon />}
-          sx={{ position: "absolute", bottom: 24, right: 24, bgcolor:'var(--background-default)' }}
+          sx={{
+            position: "absolute",
+            bottom: 24,
+            right: 24,
+            bgcolor: "var(--background-default)",
+          }}
         >
           Edit
         </Button>

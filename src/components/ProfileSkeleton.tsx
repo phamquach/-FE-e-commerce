@@ -14,15 +14,14 @@ export default function ProfileDesktopSkeleton() {
         p={3}
         borderRadius={2}
         bgcolor="white"
-        alignItems={'center'}
+        alignItems={"center"}
       >
         <Skeleton
           variant="circular"
           animation="wave"
           sx={{
-            width: 150,
-            height: 150,
-            fontSize: "10rem",
+            width: { sm: 150, xs: 100 },
+            height: { sm: 150, xs: 100 },
           }}
         />
         <Skeleton
@@ -50,7 +49,7 @@ export default function ProfileDesktopSkeleton() {
         </Typography>
 
         <br />
-        {[...Array(4)].map((_, index) => (
+        {[...Array(5)].map((_, index) => (
           <Box key={index} mb={3}>
             <Typography
               variant="h6"

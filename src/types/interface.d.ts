@@ -22,6 +22,13 @@ interface UserRegister {
     phoneNumber: string;
 }
 
+interface userInformationBuy {
+  name: string;
+  address: string;
+  phone: string;
+  quantity?: number;
+}
+
 interface Products {
     productId: number,
     name: string,

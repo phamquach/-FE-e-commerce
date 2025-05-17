@@ -4,12 +4,11 @@ import { Box, Grid, Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
-import AddressSearchModal from "@/components/AddressSearchModal";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Carousell from "@/components/Carousel";
+import ListProducts from "@/components/ListProduct";
 import ProductIntroduction from "@/components/ProductIntroduction";
 import PurchasePanel from "@/components/PurchasePanel";
-import ListProducts from "@/components/ListProduct";
 
 import { useCallAPI } from "@/hooks/useCallAPI";
 import ROUTES from "@/routes/routes";
@@ -40,10 +39,6 @@ function ViewDetailsProduct({ params }: { params: Promise<{ id: string }> }) {
 
   const [idProduct, setIdProduct] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [addressInfo, setAddressInfo] = useState({
-    open: false,
-    selected: "Chọn địa chỉ giao hàng",
-  });
 
   // Gọi API lấy chi tiết sản phẩm theo ID
   const { data } = useCallAPI(idProduct ? `${API}id=${idProduct}` : null);
@@ -61,26 +56,17 @@ function ViewDetailsProduct({ params }: { params: Promise<{ id: string }> }) {
       setIdProduct(id);
     })();
   }, [params]);
-
-  const handleSelectAddress = (addr: string) => {
-    setAddressInfo((prev) => ({ ...prev, selected: addr, open: false }));
-  };
-
   const listProducts = useMemo(() => {
     return ProductsInCategory.data?.data.filter(
       (item: Products) => item.productId !== data?.data[0]?.productId
     );
   }, [ProductsInCategory.data?.data, data?.data]);
 
-  // Tạo đường dẫn breadcrumbs
   const LinkPath = useMemo(() => {
     return path
       .split("/")
-      .slice(1, -1)
-      .filter(
-        (item): item is keyof typeof ROUTES =>
-          item in ROUTES && item !== "product"
-      );
+      .splice(1, path.split("/").length - 2)
+      .filter((item) => item !== "product") as (keyof typeof ROUTES)[];
   }, [path]);
 
   const listMenu = useMemo(
@@ -123,21 +109,10 @@ function ViewDetailsProduct({ params }: { params: Promise<{ id: string }> }) {
             setQuantity={setQuantity}
             maxQuantity={data?.data[0]?.stock}
             price={data?.data[0]?.price}
-            address={addressInfo.selected}
-            onAddressClick={() =>
-              setAddressInfo((prev) => ({ ...prev, open: true }))
-            }
+            productId={idProduct}
           />
         </Box>
       </Grid>
-
-      {/* Modal chọn địa chỉ */}
-      <AddressSearchModal
-        open={addressInfo.open}
-        onClose={() => setAddressInfo((prev) => ({ ...prev, open: false }))}
-        onSelect={handleSelectAddress}
-      />
-      <br />
 
       {/* Đánh giá sản phẩm */}
       <Box bgcolor="white" p={2} className="border-radius-default">

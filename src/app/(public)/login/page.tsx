@@ -78,8 +78,16 @@ export default function SignInForm() {
     try {
       const response = await loginAPI(email, password);
       setMessageState(null);
-      login(response.data.user);
-      route.push(ROUTE.home);
+      login(response.data);
+      if (
+        typeof window !== "undefined" &&
+        document.referrer &&
+        new URL(document.referrer).hostname === window.location.hostname
+      ) {
+        route.back();
+      } else {
+        route.push(ROUTE.home);
+      }
     } catch {
       setMessageState("Login failed. Wrong email or password.");
     }

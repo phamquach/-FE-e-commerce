@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "@/contexts/authContext";
 import type { Metadata } from "next";
 import "./globals.css";
@@ -17,10 +18,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          {/* Header */}
-
+          <ToastContainer />
           {children}
-          {/* Footer */}
         </AuthProvider>
       </body>
     </html>

@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 import * as yup from "yup";
 import styled from "@emotion/styled";
@@ -22,6 +23,10 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import ROUTE from "@/routes/routes";
+import Register from "@/services/api/register";
+import verifyEmail from "@/services/api/verifyEmail";
+import { useRouter } from "next/navigation";
+import ROUTES from "@/routes/routes";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -66,7 +71,11 @@ const FormContainer = styled.div`
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = React.useState(false);
-  const [verifyCode, setVerifyCode] = React.useState<string | null>(null);
+  const route = useRouter();
+  const [verify, setVerify] = React.useState<{
+    code: string;
+    email: string;
+  } | null>(null);
   const [messageState, setMessageState] = React.useState<null | string>(null);
   const {
     register,
@@ -79,13 +88,34 @@ export default function SignUpForm() {
   const onSubmit = async (data: UserRegister) => {
     try {
       console.log(data);
-      setVerifyCode("");
+      await Register(data);
+      setVerify({ code: "", email: data.email });
+      setMessageState(null);
+      toast.success("Chúng tôi đã gửi 1 mã xác thực đến Email của bạn!");
     } catch (error) {
       if (error instanceof Error) {
         setMessageState(error.message);
       }
     }
   };
+
+  const handleVerify = async () => {
+    try {
+      await verifyEmail(verify!.email, verify!.code);
+      toast.loading("Xác thực thành công đang chuyển đến trang login...");
+      route.push(ROUTES.login);
+    } catch (error) {
+      if (error instanceof Error) {
+        setMessageState(error.message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      toast.dismiss();
+    };
+  }, []);
 
   return (
     <Background>
@@ -172,7 +202,7 @@ export default function SignUpForm() {
             }}
           />
 
-          {verifyCode !== null && (
+          {verify !== null && (
             <Grid
               display={"grid"}
               gridTemplateColumns={{ sm: "auto auto", xs: "auto" }}
@@ -186,6 +216,7 @@ export default function SignUpForm() {
                   mt: { xs: 0, md: 2 },
                   mb: 1,
                 }}
+                onClick={handleVerify}
               >
                 Send
               </Button>
