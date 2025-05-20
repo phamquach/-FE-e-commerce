@@ -3,8 +3,8 @@ const ROUTES = {
   home: "/",
   shop: "/shop",
   category: "/shop/category",
-  product: '/shop/product',
-  buynow: '/shop/buy-now',
+  product: "/shop/product",
+  buynow: "/shop/buy-now",
 
   // Authentication routes
   login: "/login",
@@ -14,6 +14,7 @@ const ROUTES = {
   cart: "/cart",
   admin: "/admin",
   profile: "/profile",
+  edit: "/profile/edit",
 };
 
 export default ROUTES;

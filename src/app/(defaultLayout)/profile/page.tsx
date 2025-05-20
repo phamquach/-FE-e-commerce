@@ -1,102 +1,95 @@
 "use client";
+
+import React, { useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
+
+import { useAuth } from "@/contexts/authContext";
+import ProfileDesktopSkeleton from "@/components/ProfileSkeleton";
+import ROUTES from "@/routes/routes";
+
 import EditIcon from "@mui/icons-material/Edit";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ProfileDesktopSkeleton from "@/components/ProfileSkeleton";
-import { useAuth } from "@/contexts/authContext";
 
 function ProfileDesktop() {
   const { user } = useAuth();
+  const route = useRouter();
+
+  const infoUser = useMemo(() => {
+    return {
+      Name: `${user?.firstName} ${user?.lastName}`,
+      Address: user?.address,
+      Email: user?.email,
+      PhoneNumber: user?.phoneNumber,
+      Role: user?.role,
+    };
+  }, [user]);
 
   if (!user) {
     return <ProfileDesktopSkeleton />;
   }
+
   return (
     <Grid
-      display={"grid"}
+      display="grid"
       gridTemplateColumns={{ xs: "auto", md: "25% 1fr" }}
       gap={2}
     >
+      {/* Cột trái: Avatar */}
       <Box
-        display={"flex"}
-        flexDirection={"column"}
+        display="flex"
+        flexDirection="column"
         gap={2}
         p={3}
         borderRadius={2}
-        bgcolor={"white"}
-        alignItems={"center"}
+        bgcolor="white"
+        alignItems="center"
       >
         <Avatar
-          src={user?.avt}
+          src={user.avt}
           sx={{
             width: { sm: 150, xs: 100 },
             height: { sm: 150, xs: 100 },
             fontSize: { xs: "5rem", sm: "8rem", md: "10rem" },
           }}
         >
-          {user?.lastName[0]}
+          {user.lastName[0]}
         </Avatar>
-        <Button variant="outlined" color="info" sx={{ width: "100%" }}>
-          Choose Image
-        </Button>
       </Box>
 
+      {/* Cột phải: Thông tin user */}
       <Box
         p={3}
         borderRadius={2}
-        bgcolor={"white"}
-        gridColumn={"auto"}
-        position={"relative"}
+        bgcolor="white"
+        gridColumn="auto"
+        position="relative"
       >
         <Typography
           variant="h4"
           color="var(--background-default)"
-          textAlign={"center"}
-          fontFamily={"var(--font-header-default) !important"}
+          textAlign="center"
+          fontFamily="var(--font-header-default) !important"
         >
-          Xin Chào {`${user?.firstName} ${user?.lastName}`}!&nbsp;
+          Xin Chào {`${user.firstName} ${user.lastName}`}!{" "}
           <FavoriteBorderOutlinedIcon />
         </Typography>
-        <br />
-        <Typography
-          variant="h6"
-          fontFamily={"var(--font-header-default) !important"}
-          sx={{ fontWeight: 50 }}
-        >
-          Họ và tên: &nbsp; {`${user?.firstName} ${user?.lastName}`}
-        </Typography>
-        <br />
-        <Typography
-          variant="h6"
-          fontFamily={"var(--font-header-default) !important"}
-          sx={{ fontWeight: 50 }}
-        >
-          Địa chỉ: &nbsp; {user?.address}
-        </Typography>
-        <br />
-        <Typography
-          variant="h6"
-          fontFamily={"var(--font-header-default) !important"}
-          sx={{ fontWeight: 50 }}
-        >
-          Email: &nbsp; {user?.email}
-        </Typography>
-        <br />
-        <Typography
-          variant="h6"
-          fontFamily={"var(--font-header-default) !important"}
-          sx={{ fontWeight: 50 }}
-        >
-          SĐT: &nbsp; {user?.phoneNumber}
-        </Typography>
-        <br />
-         <Typography
-          variant="h6"
-          fontFamily={"var(--font-header-default) !important"}
-          sx={{ fontWeight: 50 }}
-        >
-          Role: &nbsp; {user?.role}
-        </Typography>
+
+        <Box mt={4} display="flex" flexDirection="column" gap={2}>
+          {(Object.keys(infoUser) as Array<keyof typeof infoUser>).map(
+            (key) => (
+              <Typography
+                variant="h6"
+                fontWeight={50}
+                key={key}
+                fontFamily={"var(--font-header-default) !important"}
+              >
+                {key}:&nbsp; {infoUser[key]}
+              </Typography>
+            )
+          )}
+        </Box>
+
         <br />
         <Button
           variant="contained"
@@ -107,11 +100,10 @@ function ProfileDesktop() {
             right: 24,
             bgcolor: "var(--background-default)",
           }}
+          onClick={() => route.push(ROUTES.edit)}
         >
           Edit
         </Button>
-        <br />
-        <br />
       </Box>
     </Grid>
   );
