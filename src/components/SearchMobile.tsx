@@ -52,9 +52,6 @@ function SearchMobile({
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>, query: string) => {
-    if (!query) {
-      return;
-    }
     if (e.key === "Enter") {
       e.preventDefault();
       handleSearch(query);
@@ -62,6 +59,9 @@ function SearchMobile({
   };
 
   const handleSearch = (query: string) => {
+    if (!query) {
+      return;
+    }
     closeSearch();
     route.push(`${ROUTES.search}?q=${query}`);
   };
