@@ -234,11 +234,11 @@ const CartTable = () => {
       <Box
         mt={3}
         display="flex"
-        justifyContent="space-between"
         alignItems="center"
         flexWrap="wrap"
+        flexDirection={"column"}
         gap={2}
-        flexDirection={{ xs: "row-reverse", sm: "row" }}
+        sx={{ alignItems: "flex-end" }}
       >
         <Box display="flex" alignItems="center" gap={2}>
           <Typography>Phương thức giao hàng:</Typography>

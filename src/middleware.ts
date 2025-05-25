@@ -29,16 +29,20 @@ export async function middleware(request: NextRequest) {
         }
 
         // Gọi BE để xác thực token
-        const res = await fetch(`${process.env.API_URL}/api/auth/me`, {
-            headers: {
-                Cookie: `token=${token}`,
-            },
-        });
+        try {
+            const res = await fetch(`${process.env.API_URL}/api/auth/me`, {
+                headers: {
+                    Cookie: `token=${token}`,
+                },
+            });
 
-        if (res.ok) {
-            return NextResponse.next(); // Authenticated
-        } else {
-            return NextResponse.redirect(new URL(ROUTES.login, request.url));
+            if (res.ok) {
+                return NextResponse.next(); // Authenticated
+            } else {
+                return NextResponse.redirect(new URL(ROUTES.login, request.url));
+            }
+        } catch {
+            return NextResponse.redirect(new URL(ROUTES.login, request.url))
         }
     }
 

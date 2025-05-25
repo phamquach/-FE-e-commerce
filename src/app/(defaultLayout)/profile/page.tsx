@@ -50,7 +50,7 @@ function ProfileDesktop() {
           sx={{
             width: { sm: 150, xs: 100 },
             height: { sm: 150, xs: 100 },
-            fontSize: { xs: "5rem", sm: "8rem", md: "10rem" },
+            fontSize: { xs: "4rem", sm: "6rem", md: "8rem" },
           }}
         >
           {user.lastName[0]}

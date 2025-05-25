@@ -8,8 +8,6 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 700,
-  height: 500,
   p: 4,
   border: "none",
   ":focus-visible": { outline: "none" },
@@ -36,7 +34,13 @@ export default function BasicModal({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          sx={{
+            ...style,
+            width: { sm: 700, xs: "80dvw" },
+            height: { sm: 500, xs: 350 },
+          }}
+        >
           <Image
             src={src}
             alt={alt}

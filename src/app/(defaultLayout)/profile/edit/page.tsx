@@ -18,6 +18,9 @@ import {
   Typography,
   styled,
 } from "@mui/material";
+import updateUser from "@/services/api/updateUser";
+import { toast } from "react-toastify";
+import { isObjectShallowEqual } from "@/lib";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -33,7 +36,7 @@ const VisuallyHiddenInput = styled("input")({
 
 function Edit() {
   const route = useRouter();
-  const { user } = useAuth();
+  const { user, login } = useAuth();
   const [userData, setUserData] = React.useState<User | null>(user);
 
   React.useEffect(() => {
@@ -52,7 +55,31 @@ function Edit() {
 
   const handleOnChangeValue = (key: string, value: string) => {
     if (userData) {
-      setUserData({ ...userData, [key]: value });
+      setUserData({ ...userData, [key]: value.trim() });
+    }
+  };
+
+  const handleChangeAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0] && userData) {
+      URL.revokeObjectURL(userData?.avt);
+      setUserData({
+        ...userData,
+        avt: URL.createObjectURL(event.target.files[0]),
+      });
+    }
+  };
+
+  const handleUpdateUser = async () => {
+    try {
+      if (userData && user && !isObjectShallowEqual<User>(user, userData)) {
+        const response = await updateUser(userData);
+        login(response?.data);
+        toast.success("Cập nhập thông tin thành công!");
+      }
+
+      route.back();
+    } catch (error) {
+      if (error instanceof Error) toast.error(error.message);
     }
   };
 
@@ -77,14 +104,14 @@ function Edit() {
         alignItems="center"
       >
         <Avatar
-          src={user?.avt}
+          src={userData.avt}
           sx={{
             width: { sm: 150, xs: 100 },
             height: { sm: 150, xs: 100 },
-            fontSize: { xs: "5rem", sm: "8rem", md: "10rem" },
+            fontSize: { xs: "4rem", sm: "6rem", md: "8rem" },
           }}
         >
-          {user?.lastName[0]}
+          {userData.lastName[0]}
         </Avatar>
 
         <Button
@@ -97,7 +124,7 @@ function Edit() {
           Upload files
           <VisuallyHiddenInput
             type="file"
-            onChange={(event) => console.log(event.target.files)}
+            onChange={handleChangeAvatar}
             multiple
           />
         </Button>
@@ -117,7 +144,7 @@ function Edit() {
           textAlign="center"
           fontFamily="var(--font-header-default) !important"
         >
-          Xin Chào {`${user?.firstName} ${user?.lastName}`}!{" "}
+          Xin Chào {`${userData.firstName} ${userData.lastName}`}!
           <FavoriteBorderOutlinedIcon />
         </Typography>
 
@@ -150,7 +177,7 @@ function Edit() {
             right: 24,
             bgcolor: "var(--background-default)",
           }}
-          onClick={() => route.back()}
+          onClick={handleUpdateUser}
         >
           Save
         </Button>

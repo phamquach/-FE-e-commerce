@@ -5,6 +5,7 @@ const ROUTES = {
   category: "/shop/category",
   product: "/shop/product",
   buynow: "/shop/buy-now",
+  search: "/shop/search",
 
   // Authentication routes
   login: "/login",
